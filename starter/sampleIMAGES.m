@@ -25,21 +25,16 @@ patches = zeros(patchsize*patchsize, numpatches);
 %  patch corresponding to the pixels in the block (21,21) to (30,30) of
 %  Image 1
 
-maxSize = 512;
-
+imageHeight = size(IMAGES,1);
+imageWidth  = size(IMAGES,2);
 for i = 1:numpatches
-	image_no_vec = randperm(10);
-	image_no = image_no_vec(1);
-	r1_vec = randperm(maxSize-patchsize+1);
-	r1 = r1_vec(1);
-	r2 = r1 + (patchsize - 1);
-	p  = IMAGES(r1:r2, r1:r2, image_no); 
-	if (i == 1);
-		patches = p(:);
-	else
-		patches = [patches p(:)];
-	end;
-
+	image_no = randi(10);
+	y1 = randi(imageHeight-patchsize+1);
+	y2 = y1 + (patchsize - 1);
+	x1 = randi(imageWidth-patchsize+1);
+	x2 = x1 + (patchsize - 1);
+	p  = IMAGES(y1:y2, x1:x2, image_no); 
+	patches(:,i) = p(:);
 end;
 fprintf('\n patches Data Length = %d Features = %d \n',size(patches,1),size(patches,2));	
 
